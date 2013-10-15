@@ -1,8 +1,5 @@
 *.py[cod]
 
-# C extensions
-*.so
-
 # Packages
 *.egg
 *.egg-info
@@ -34,3 +31,10 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# local files
+local_manage.py
+local_settings.py
+
+# secret key
+secret_key.py
