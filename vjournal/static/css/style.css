@@ -1,0 +1,28 @@
+html {
+    background-color: #eeeeee;
+}
+
+body {
+    background: #b6b7bc;
+    margin: 0 auto;
+    padding: 2em;
+    max-width: 90%;
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    color: #333333;
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+}
+
+label {
+    text-align: right;
+    width: 9em;
+    float: left;
+}
+
+td {
+    padding: 2%;
+    text-align: center;
+}
+    
