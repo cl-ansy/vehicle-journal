@@ -1,18 +1,39 @@
         <div class = "page">
             <div class = "header">
-                <h1>Maintenance Information Form</h1>
             </div>
 
             <div class = "main">
+                <h1>Maintenance Information Form</h1>
                 <form>
-                    <h2>Maintenance Information</h2>
-                    <div><label>Make:</label><input type = "text" name = "make"></div>
-                    <div><label>Model:</label><input type = "text" name = "model"></div>
-                    <div><label>Year:</label><input type = "text" name = "year"></div>
-                    <div><label>Color:</label><input type = "text" name = "color"></div>
-                    <div><label>Vin Number:</label><input type = "text" name = "vinnum"></div>
-                    <div><label>Tag Number:</label><input type = "text" name = "tagnum"></div>
-
+                    <div><label>Maintenance Info:</label>
+                    <textarea rows = "10" cols = "50" id = "maintenanceNotes"></textarea></div>
+                    
+                    <div>
+                        <label>Mechanic:</label>
+                            <select name = "selectMechanic">
+                                <option>Self</option>
+                                <option>Mechanic Option</option>
+                            </select>
+                        <div>                    
+                            <input type="button" name="addMechanic" value="Add Mechanic" onclick="location.href='addMechanic.html';"/>
+                        </div>
+                    </div>
+                    <div>
+                        <h2>Part Info:</h2>
+                        <div id = "partInfo">Info goes here</div>
+                        <div>
+                            <input type = "button" name = "addParts" value = "Add Part" onclick = "location.href='addPart.html';"/>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h2>Finance Info:</h2>
+                        <div id = "financeInfo">Info goes here</div>
+                        <div>                    
+                            <input type="button" name="addFinance" value="Add Finance Info" onclick="location.href='addFinance.html';"/>
+                        </div>
+                    </div>
+                    
                     <div><input type = "submit" name = "submit" value = "Submit"></div>
                 </form>
             </div>
