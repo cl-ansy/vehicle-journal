@@ -145,3 +145,5 @@ LOGGING = {
         },
     }
 }
+
+AUTH_PROFILE_MODULE = 'vjournal.UserProfile'
