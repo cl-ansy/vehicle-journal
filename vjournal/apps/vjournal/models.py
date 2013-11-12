@@ -5,10 +5,9 @@ from django.db.models.signals import post_save
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    vehicle = models.ForeignKey('Vehicle')
 
     def __unicode__(self):
-        return self.user
+        return self.user.username
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -22,9 +21,9 @@ class Vehicle(models.Model):
     make = models.CharField(max_length=45)
     model = models.CharField(max_length=45)
     year = models.IntegerField()
-    color = models.IntegerField()
+    color = models.CharField(max_length=20)
     VIN = models.IntegerField()
-    license = models.IntegerField()
+    license = models.CharField(max_length=8)
     purchase_date = models.DateField()
 
     additional_info = models.CharField(max_length=60)
@@ -44,14 +43,18 @@ class History(models.Model):
 
     additional_info = models.CharField(max_length=60)
 
+    #build RESTful URLs in the backend -- eventually
+    def get_absolute_url(self):
+        return 'ZE URL'
+
     def __unicode__(self):
-        return self.history_id
+        return unicode(self.history_id)
 
 class Mechanic(models.Model):
     history = models.ForeignKey('History')
 
-    name = models.CharField()
-    phone_number = models.IntegerField()
+    name = models.CharField(max_length=45)
+    phone_number = models.CharField(max_length=10)
     address = models.CharField(max_length=70)
     specialty = models.CharField(max_length=45)
 
@@ -70,7 +73,7 @@ class Finance(models.Model):
     repair_cost = models.IntegerField()
 
     def __unicode__(self):
-        return self.finance_id
+        return unicode(self.finance_id)
 
 class Part(models.Model):
     history = models.ForeignKey('History')
@@ -82,4 +85,4 @@ class Part(models.Model):
     price = models.IntegerField()
 
     def __unicode__(self):
-        return self.name
+        return "%s for history: %s" % (self.name, self.history)

@@ -2,63 +2,73 @@
 
 {% block header %}
 {% endblock header %}
-
+<!-- My idea for layout:
+Vehicles button toggle show list of vehicles
+Click a vehicle to toggle show paginated histories (can retrieve with AJAX)
+Buttons to toggle show mechanics/parts/finance
+Am I too obsessed with toggles? Not enough AJAX for project reqs?
+-->
 {% block main %}
-        <div class = "main">
-            <h1>Vehicles</h1>
-            <div id="accordion">
-                <h3>Car 1</h3>
-                <div>
-                    <p><strong>Make:</strong> Ford</p>
-                    <p><strong>Model:</strong> Explorer</p>
-                    <p><strong>Year:</strong> 1994</p>
-                    <p><strong>Color:</strong> Tan</p>
-                    <p><strong>VIN #:</strong> </p>
-                    <p><strong>Tag #:</strong> </p>
-                    <div><input type = "button" name = "editVehicleButton" value = "Edit Vehicle" onclick=""></div>
-                    <div><input type = "button" name = "seeHistory" value = "View History" onclick="location.href='history.html';"></div>
-                </div>
-    
-                <h3>Car 2</h3>
-                <div>
-                    <p><strong>Make:</strong> </p>
-                    <p><strong>Model:</strong> </p>
-                    <p><strong>Year:</strong> </p>
-                    <p><strong>Color:</strong> </p>
-                    <p><strong>VIN #:</strong> </p>
-                    <p><strong>Tag #:</strong> </p>
-                    <div><input type = "button" name = "editVehicleButton" value = "Edit Vehicle" onclick=""></div>
-                    <div><input type = "button" name = "seeHistory" value = "View History" onclick="location.href='history.html';"></div>
-                </div>
-    
-                <h3>Car 3</h3>
-                <div>
-                    <p><strong>Make:</strong> </p>
-                    <p><strong>Model:</strong> </p>
-                    <p><strong>Year:</strong> </p>
-                    <p><strong>Color:</strong> </p>
-                    <p><strong>VIN #:</strong> </p>
-                    <p><strong>Tag #:</strong> </p>
-                    <div><input type = "button" name = "editVehicleButton" value = "Edit Vehicle" onclick=""></div>
-                    <div><input type = "button" name = "seeHistory" value = "View History" onclick="location.href='history.html';"></div>
-                </div>
-            
-                <h3>Car 4</h3>
-                <div>
-                    <p><strong>Make:</strong> </p>
-                    <p><strong>Model:</strong> </p>
-                    <p><strong>Year:</strong> </p>
-                    <p><strong>Color:</strong> </p>
-                    <p><strong>VIN #:</strong> </p>
-                    <p><strong>Tag #:</strong> </p>
-                    <div><input type = "button" name = "editVehicleButton" value = "Edit Vehicle" onclick=""></div>
-                    <div><input type = "button" name = "seeHistory" value = "View History" onclick="location.href='history.html';"></div>
-                </div>
+    <h1>Vehicles</h1>
+    {% for vehicle in vehicles %}
+        <div id="accordion">
+            <h3>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</h3>
+            <div>
+                <p><strong>Make:</strong> {{vehicle.make}}</p>
+                <p><strong>Model:</strong> {{vehicle.model}}</p>
+                <p><strong>Year:</strong> {{vehicle.year}}</p>
+                <p><strong>Color:</strong> {{vehicle.color}}</p>
+                <p><strong>VIN #:</strong> {{vehicle.VIN}}</p>
+                <p><strong>Tag #:</strong> {{vehicle.license}}</p>
+                <div><input type = "button" name = "editVehicleButton" value = "Edit Vehicle" onclick=""></div>
+                <div><input type = "button" name = "seeHistory" value = "View History" onclick="location.href='history.html';"></div>
+                <!-- seeHistory button should toggle show/hide history -->
+                <h3>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}} History</h3>
+                {% for history in vehicle.history_set.all %}
+                    <div style="border: 1px solid black">
+                    <!-- TEMPORARY INLINE STYLING TO VISUALLY GROUP THE DATA. THIS WILL BE TAKEN OUT
+                    ASAP. DONT YELL AT ME -->
+                    <p><strong>History ID:</strong> {{history.history_id}}</p>
+                    <p><strong>Location:</strong> {{history.location}}</p>
+                    <p><strong>Mileage:</strong> {{history.current_mileage}}</p>
+                    <p><strong>Maintenance Type:</strong> {{history.maintenance_type}}</p>
+                    <p><strong>Date Performed:</strong> {{history.date_performed}}</p>
+                    <p><strong>Self Maintenance?:</strong> {{history.self_maintenance}}</p>
+                    <p><strong>Additional Info:</strong> {{history.additional_info}}</p>
+                    <h3>Mechanics</h3>
+                    {% for mechanic in history.mechanic_set.all %}
+                        <p><strong>Name:</strong> {{mechanic.name}}</p>
+                        <p><strong>Phone:</strong> {{mechanic.phone_number}}</p>
+                        <p><strong>Address:</strong> {{mechanic.address}}</p>
+                        <p><strong>Specialty:</strong> {{mechanic.specialty}}</p>
+                    {% endfor %}
+                    <h3>Parts</h3>
+                    {% for part in history.part_set.all %}
+                        <p><strong>Name:</strong> {{part.name}}</p>
+                        <p><strong>Number:</strong> {{part.number}}</p>
+                        <p><strong>Warranty Expiration:</strong> {{part.warranty_expiration}}</p>
+                        <p><strong>Vendor:</strong> {{part.vendor}}</p>
+                        <p><strong>Price:</strong> {{part.price}}</p>
+                    {% endfor %}
+                    <h3>Finance</h3>
+                    {% for finance in history.finance_set.all %}
+                        <p><strong>ID:</strong> {{finance.finance_id}}</p>
+                        <p><strong>Insurance Paid:</strong> {{finance.insurance_paid}}</p>
+                        <p><strong>Date Due:</strong> {{finance.date_due}}</p>
+                        <p><strong>Date Paid:</strong> {{finance.date_paid}}</p>
+                        <p><strong>Deductible:</strong> {{finance.deductible}}</p>
+                        <p><strong>Notes:</strong> {{finance.insurance_notes}}</p>
+                        <p><strong>Repair Cost:</strong> {{finance.repair_cost}}</p>
+                    {% endfor %}
+
+                    </div>
+                {% endfor %}
             </div>
-            <br/><br/><br/>
-            <div><input type = "button" name = "addVehicleButton" value = "Add Vehicle" onclick="location.href='addVehicle.html';"></div>
         </div>
-{% enblock main %}
+        <br/><br/><br/>
+        <div><input type = "button" name = "addVehicleButton" value = "Add Vehicle" onclick="location.href='addVehicle.html';"></div>
+    {% endfor %}
+{% endblock main %}
 
 {% block footer %}
 {% endblock footer %}
