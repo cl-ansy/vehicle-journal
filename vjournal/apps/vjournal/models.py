@@ -21,7 +21,6 @@ class Vehicle(models.Model):
 class History(models.Model):
     vehicle = models.ForeignKey('Vehicle')
 
-    history_id = models.IntegerField()
     location = models.CharField(max_length=45)
     current_mileage = models.IntegerField()
     maintenance_type = models.CharField(max_length=60)
@@ -51,7 +50,6 @@ class Mechanic(models.Model):
 class Finance(models.Model):
     history = models.ForeignKey('History')
 
-    finance_id = models.IntegerField()
     insurance_paid = models.IntegerField()
     date_due = models.DateField()
     date_paid = models.DateField()
