@@ -38,7 +38,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '/data/vehicle-journal/vjournal/apps/landing/static/',
+    '/data/vehicle-journal/vjournal/static/',
 )
 
 MIDDLEWARE_CLASSES += (

@@ -2,21 +2,32 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Vehicle Journal</title>
+        <title>{% block title %}Vehicle Journal{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <meta name="description" content="Keep track of your vehicle with Vehicle Journal.">
         <meta name="keywords" content="Vehicle Journal">
         <meta name="author" content="Chris Lansing, Sam Cavedo">
 
         <!-- CSS -->
+        <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" type="text/css" >
         {% block styles %}{% endblock styles %}
     </head>
 
     <body>
-        <div class = "header">
-            {% block header %}
-            {% endblock header %}
+
+    <img class="header" src="{{ STATIC_URL }}images/header.png" />
+
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="/">Vehicle Journal</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/account/logout">Logout</a></li>
+            </ul>
+            <p class="navbar-text navbar-right">Welcome, {{user.username}}!</p>
+          </div>
         </div>
 
         <div class = "main">
@@ -31,6 +42,7 @@
 
         <!-- JS -->
         <script src="{{ STATIC_URL }}js/jquery/jquery-1.10.2.min.js"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
         {% block scripts %}{% endblock scripts %}
     </body>
 </html>

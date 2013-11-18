@@ -6,9 +6,12 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', 'vjournal.apps.vjournal.views.index', name='index'),
 
-    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}),
+    #user account urls
+    url(r'^account/login/$', 'django.contrib.auth.views.login', {'template_name': 'account/login.html'}),
+    url(r'^account/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'account/logout.html'}),
+    url(r'^account/register/$', 'vjournal.apps.vjournal.views.register', name='regsiter'),
 
+    #admin urls
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 )

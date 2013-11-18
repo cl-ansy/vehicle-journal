@@ -1,9 +1,4 @@
 {% extends 'base.html' %}
-
-{% block header %}
-<p>Welcome, {{user.username}}!</p>
-<input type="button" value="Logout" onclick="location.href='/logout';">
-{% endblock header %}
 <!-- My idea for layout:
 Vehicles button toggle show list of vehicles
 Click a vehicle to toggle show paginated histories (can retrieve with AJAX)
@@ -11,7 +6,7 @@ Buttons to toggle show mechanics/parts/finance
 Am I too obsessed with toggles? Not enough AJAX for project reqs?
 -->
 {% block main %}
-    <h1>Vehicles</h1>
+    <h1>{{user.first_name}} {{user.last_name}}'s Vehicles</h1>
     {% for vehicle in vehicles %}
         <div id="accordion">
             <h3>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</h3>
