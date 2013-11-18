@@ -22,10 +22,7 @@ Am I too obsessed with toggles? Not enough AJAX for project reqs?
                 <!-- seeHistory button should toggle show/hide history -->
                 <h3>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}} History</h3>
                 {% for history in vehicle.history_set.all %}
-                    <div style="border: 1px solid black">
-                    <!-- TEMPORARY INLINE STYLING TO VISUALLY GROUP THE DATA. THIS WILL BE TAKEN OUT
-                    ASAP. DONT YELL AT ME -->
-                    <p><strong>History ID:</strong> {{history.history_id}}</p>
+                    <div>
                     <p><strong>Location:</strong> {{history.location}}</p>
                     <p><strong>Mileage:</strong> {{history.current_mileage}}</p>
                     <p><strong>Maintenance Type:</strong> {{history.maintenance_type}}</p>
@@ -49,7 +46,6 @@ Am I too obsessed with toggles? Not enough AJAX for project reqs?
                     {% endfor %}
                     <h3>Finance</h3>
                     {% for finance in history.finance_set.all %}
-                        <p><strong>ID:</strong> {{finance.finance_id}}</p>
                         <p><strong>Insurance Paid:</strong> {{finance.insurance_paid}}</p>
                         <p><strong>Date Due:</strong> {{finance.date_due}}</p>
                         <p><strong>Date Paid:</strong> {{finance.date_paid}}</p>

@@ -23,10 +23,30 @@
             <div class="navbar-header">
               <a class="navbar-brand" href="/">Vehicle Journal</a>
             </div>
+            <ul class="nav navbar-nav navbar-left nav-pills">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Add <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/add/vehicle/">Vehicle</a></li>
+                        <li><a href="/add/history/">History</a></li>
+                        <li><a href="/add/mechanic/">Mechanic</a></li>
+                        <li><a href="/add/finance/">Finance</a></li>
+                        <li><a href="/add/part/">Part</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {% if user.is_authenticated %}
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/account/logout">Logout</a></li>
             </ul>
             <p class="navbar-text navbar-right">Welcome, {{user.username}}!</p>
+            {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/account/login">Login</a></li>
+            </ul>
+            {% endif %}
           </div>
         </div>
 

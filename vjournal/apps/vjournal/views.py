@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from vjournal.apps.vjournal.models import Vehicle
+from vjournal.apps.vjournal.forms import VehicleForm
 
 
 @login_required(login_url='/account/login/')
@@ -28,3 +29,33 @@ def register(request):
     return render(request, "account/register.html", {
         'form': form,
     })
+
+@login_required(login_url='/account/login/')
+def add_vehicle(request):
+    if request.method == 'POST':
+        vehicle = Vehicle(owner=request.user)
+        form = VehicleForm(request.POST, instance = vehicle)
+        if form.is_valid():
+            new_vehicle = form.save()
+            return HttpResponseRedirect("/")
+    else:
+        form = VehicleForm()
+    return render(request, "add/addVehicle.html", {
+        'form': form,
+    })
+
+@login_required(login_url='/account/login/')
+def add_history(request):
+    return render(request, "add/addHistory.html")
+
+@login_required(login_url='/account/login/')
+def add_mechanic(request):
+    return render(request, "add/addMechanic.html")
+
+@login_required(login_url='/account/login/')
+def add_finance(request):
+    return render(request, "add/addFinance.html")
+
+@login_required(login_url='/account/login/')
+def add_part(request):
+    return render(request, "add/addPart.html")

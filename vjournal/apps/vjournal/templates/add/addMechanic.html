@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h1>Add Mechanic Form</h1>
+<form>
+    <div><label>Name:</label><input type = "text" name = "mname" required></div>
+    <div><label>Location:</label><input type = "text" name = "mlocation" required></div>
+    <div>
+        <label>Phone:</label>
+        <input type = "tel" name = "mphone" placeholder = "(555)555-5555" pattern= "\(\d{3}\)+\d{3}-\d{4}" required>
+    </div>
+    <div><label>Specialty:</label><input type = "text" name = "mspec"></div>
+    <div><label>Self Maintenance:<input type = "checkbox" name = "selfmechanic"></label></div><br/>
+
+    <div><input type = "submit" name = "submit" value = "Submit"></div>
+</form>
+{% endblock %}
