@@ -9,7 +9,7 @@ class Vehicle(models.Model):
     model = models.CharField(max_length=45)
     year = models.IntegerField()
     color = models.CharField(max_length=20)
-    VIN = models.IntegerField()
+    VIN = models.CharField(max_length=17)
     license = models.CharField(max_length=8)
     purchase_date = models.DateField()
 
