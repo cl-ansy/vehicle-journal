@@ -2,13 +2,10 @@
 
 {% block main %}
 <h1>Add Part Form</h1>
-<form>
-    <div><label>Part Name:</label><input type = "text" name = "pname" required></div>
-    <div><label>Part Number:</label><input type = "text" name = "pnum" required></div>
-    <div><label>Part Price:</label><input type = "text" name = "pprice" required></div>
-    <div><label>Purchase Date:</label><input type = "date" name = "purchasedate" required></div>
-    <div><label>Warranty End Date:</label><input type = "date" name = "warrantydate"></div>
 
-    <div><input type = "submit" name = "submit" value = "Submit"></div>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add Part">
 </form>
 {% endblock %}

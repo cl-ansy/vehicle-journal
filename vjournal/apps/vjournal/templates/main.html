@@ -6,7 +6,7 @@ Buttons to toggle show mechanics/parts/finance
 Am I too obsessed with toggles? Not enough AJAX for project reqs?
 -->
 {% block main %}
-    <h1>{{user.first_name}} {{user.last_name}}'s Vehicles</h1>
+    <h1>{{user.username}}'s Vehicles</h1>
     {% for vehicle in vehicles %}
         <div id="accordion">
             <h3>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</h3>
@@ -18,7 +18,7 @@ Am I too obsessed with toggles? Not enough AJAX for project reqs?
                 <p><strong>VIN #:</strong> {{vehicle.VIN}}</p>
                 <p><strong>Tag #:</strong> {{vehicle.license}}</p>
                 <div><input type = "button" name = "editVehicleButton" value = "Edit Vehicle" onclick=""></div>
-                <div><input type = "button" name = "seeHistory" value = "View History" onclick="location.href='history.html';"></div>
+                <div><input type = "button" name = "seeHistory" value = "Add History" onclick="location.href='add/history';"></div>
                 <!-- seeHistory button should toggle show/hide history -->
                 <h3>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}} History</h3>
                 {% for history in vehicle.history_set.all %}
@@ -29,12 +29,14 @@ Am I too obsessed with toggles? Not enough AJAX for project reqs?
                     <p><strong>Date Performed:</strong> {{history.date_performed}}</p>
                     <p><strong>Self Maintenance?:</strong> {{history.self_maintenance}}</p>
                     <p><strong>Additional Info:</strong> {{history.additional_info}}</p>
+                    <div><input type = "button" name = "editHistoryButton" value = "Edit History" onclick=""></div>
                     <h3>Mechanics</h3>
                     {% for mechanic in history.mechanic_set.all %}
                         <p><strong>Name:</strong> {{mechanic.name}}</p>
                         <p><strong>Phone:</strong> {{mechanic.phone_number}}</p>
                         <p><strong>Address:</strong> {{mechanic.address}}</p>
                         <p><strong>Specialty:</strong> {{mechanic.specialty}}</p>
+                        <div><input type = "button" name = "editMechanicButton" value = "Edit Mechanic" onclick=""></div>
                     {% endfor %}
                     <h3>Parts</h3>
                     {% for part in history.part_set.all %}
@@ -42,16 +44,18 @@ Am I too obsessed with toggles? Not enough AJAX for project reqs?
                         <p><strong>Number:</strong> {{part.number}}</p>
                         <p><strong>Warranty Expiration:</strong> {{part.warranty_expiration}}</p>
                         <p><strong>Vendor:</strong> {{part.vendor}}</p>
-                        <p><strong>Price:</strong> {{part.price}}</p>
+                        <p><strong>Price:</strong> ${{part.price}}</p>
+                        <div><input type = "button" name = "editPartButton" value = "Edit Part" onclick=""></div>
                     {% endfor %}
                     <h3>Finance</h3>
                     {% for finance in history.finance_set.all %}
-                        <p><strong>Insurance Paid:</strong> {{finance.insurance_paid}}</p>
+                        <p><strong>Insurance Paid:</strong> ${{finance.insurance_paid}}</p>
                         <p><strong>Date Due:</strong> {{finance.date_due}}</p>
                         <p><strong>Date Paid:</strong> {{finance.date_paid}}</p>
-                        <p><strong>Deductible:</strong> {{finance.deductible}}</p>
+                        <p><strong>Deductible:</strong> ${{finance.deductible}}</p>
                         <p><strong>Notes:</strong> {{finance.insurance_notes}}</p>
-                        <p><strong>Repair Cost:</strong> {{finance.repair_cost}}</p>
+                        <p><strong>Repair Cost:</strong> ${{finance.repair_cost}}</p>
+                        <div><input type = "button" name = "editFinanceButton" value = "Edit Finance" onclick=""></div>
                     {% endfor %}
 
                     </div>
@@ -59,8 +63,8 @@ Am I too obsessed with toggles? Not enough AJAX for project reqs?
             </div>
         </div>
         <br/><br/><br/>
-        <div><input type = "button" name = "addVehicleButton" value = "Add Vehicle" onclick="location.href='addVehicle.html';"></div>
     {% endfor %}
+    <div><input type = "button" name = "addVehicleButton" value = "Add Vehicle" onclick="location.href='add/vehicle';"></div>
 {% endblock main %}
 
 {% block footer %}

@@ -2,15 +2,10 @@
 
 {% block main %}
 <h1>Add Finance Form</h1>
-<form>
-    <div><label>Cost:</label><input type = "text" name = "cost" required></div>
-    <div><label>Insurance Paid:</label><input type = "text" name = "ipaid" required></div>
-    <div><label>Deductible:</label><input type = "text" name = "deductible" required></div>
-    <div><label>Date Paid:</label><input type = "date" name = "datepaid" required></div>
-    <div><label>Date Due:</label><input type = "date" name = "datedue"></div>
-    <div><label>Insurence Notes:</label>
-    <textarea rows = "10" cols = "50" id = "insuranceNotes"></textarea></div>
 
-    <div><input type = "submit" name = "submit" value = "Submit"></div>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add Finance">
 </form>
 {% endblock %}

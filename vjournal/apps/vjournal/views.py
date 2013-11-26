@@ -5,7 +5,15 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from vjournal.apps.vjournal.models import Vehicle
+from vjournal.apps.vjournal.models import Part
+from vjournal.apps.vjournal.models import Mechanic
+from vjournal.apps.vjournal.models import History
+from vjournal.apps.vjournal.models import Finance
 from vjournal.apps.vjournal.forms import VehicleForm
+from vjournal.apps.vjournal.forms import PartForm
+from vjournal.apps.vjournal.forms import MechanicForm
+from vjournal.apps.vjournal.forms import HistoryForm
+from vjournal.apps.vjournal.forms import FinanceForm
 
 
 @login_required(login_url='/account/login/')
@@ -46,16 +54,52 @@ def add_vehicle(request):
 
 @login_required(login_url='/account/login/')
 def add_history(request):
-    return render(request, "add/addHistory.html")
+    if request.method == 'POST':
+        form = HistoryForm(request.POST)
+        if form.is_valid():
+            new_history = form.save()
+            return HttpResponseRedirect("/")
+    else:
+        form = HistoryForm()
+    return render(request, "add/addHistory.html", {
+        'form': form,
+    })
 
 @login_required(login_url='/account/login/')
 def add_mechanic(request):
-    return render(request, "add/addMechanic.html")
+    if request.method == 'POST':
+        form = MechanicForm(request.POST)
+        if form.is_valid():
+            new_mechanic = form.save()
+            return HttpResponseRedirect("/")
+    else:
+        form = MechanicForm()
+    return render(request, "add/addMechanic.html", {
+        'form': form,
+    })
 
 @login_required(login_url='/account/login/')
 def add_finance(request):
-    return render(request, "add/addFinance.html")
+    if request.method == 'POST':
+        form = FinanceForm(request.POST)
+        if form.is_valid():
+            new_finance = form.save()
+            return HttpResponseRedirect("/")
+    else:
+        form = FinanceForm()
+    return render(request, "add/addFinance.html", {
+        'form': form,
+    })
 
 @login_required(login_url='/account/login/')
 def add_part(request):
-    return render(request, "add/addPart.html")
+    if request.method == 'POST':
+        form = PartForm(request.POST)
+        if form.is_valid():
+            new_part = form.save()
+            return HttpResponseRedirect("/")
+    else:
+        form = PartForm()
+    return render(request, "add/addPart.html", {
+        'form': form,
+    })

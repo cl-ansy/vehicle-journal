@@ -34,7 +34,7 @@ class History(models.Model):
         return 'ZE URL'
 
     def __unicode__(self):
-        return unicode(self.history_id)
+        return unicode(self.maintenance_type)
 
 class Mechanic(models.Model):
     history = models.ForeignKey('History')
