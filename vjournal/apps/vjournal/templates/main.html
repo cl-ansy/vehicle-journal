@@ -1,70 +1,73 @@
 {% extends 'base.html' %}
-<!-- My idea for layout:
-Vehicles button toggle show list of vehicles
-Click a vehicle to toggle show paginated histories (can retrieve with AJAX)
-Buttons to toggle show mechanics/parts/finance
-Am I too obsessed with toggles? Not enough AJAX for project reqs?
--->
-{% block main %}
-    <h1>{{user.username}}'s Vehicles</h1>
-    {% for vehicle in vehicles %}
-        <div id="accordion">
-            <h3>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</h3>
-            <div>
-                <p><strong>Make:</strong> {{vehicle.make}}</p>
-                <p><strong>Model:</strong> {{vehicle.model}}</p>
-                <p><strong>Year:</strong> {{vehicle.year}}</p>
-                <p><strong>Color:</strong> {{vehicle.color}}</p>
-                <p><strong>VIN #:</strong> {{vehicle.VIN}}</p>
-                <p><strong>Tag #:</strong> {{vehicle.license}}</p>
-                <div><input type = "button" name = "editVehicleButton" value = "Edit Vehicle" onclick=""></div>
-                <div><input type = "button" name = "seeHistory" value = "Add History" onclick="location.href='add/history';"></div>
-                <!-- seeHistory button should toggle show/hide history -->
-                <h3>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}} History</h3>
-                {% for history in vehicle.history_set.all %}
-                    <div>
-                    <p><strong>Location:</strong> {{history.location}}</p>
-                    <p><strong>Mileage:</strong> {{history.current_mileage}}</p>
-                    <p><strong>Maintenance Type:</strong> {{history.maintenance_type}}</p>
-                    <p><strong>Date Performed:</strong> {{history.date_performed}}</p>
-                    <p><strong>Self Maintenance?:</strong> {{history.self_maintenance}}</p>
-                    <p><strong>Additional Info:</strong> {{history.additional_info}}</p>
-                    <div><input type = "button" name = "editHistoryButton" value = "Edit History" onclick=""></div>
-                    <h3>Mechanics</h3>
-                    {% for mechanic in history.mechanic_set.all %}
-                        <p><strong>Name:</strong> {{mechanic.name}}</p>
-                        <p><strong>Phone:</strong> {{mechanic.phone_number}}</p>
-                        <p><strong>Address:</strong> {{mechanic.address}}</p>
-                        <p><strong>Specialty:</strong> {{mechanic.specialty}}</p>
-                        <div><input type = "button" name = "editMechanicButton" value = "Edit Mechanic" onclick=""></div>
-                    {% endfor %}
-                    <h3>Parts</h3>
-                    {% for part in history.part_set.all %}
-                        <p><strong>Name:</strong> {{part.name}}</p>
-                        <p><strong>Number:</strong> {{part.number}}</p>
-                        <p><strong>Warranty Expiration:</strong> {{part.warranty_expiration}}</p>
-                        <p><strong>Vendor:</strong> {{part.vendor}}</p>
-                        <p><strong>Price:</strong> ${{part.price}}</p>
-                        <div><input type = "button" name = "editPartButton" value = "Edit Part" onclick=""></div>
-                    {% endfor %}
-                    <h3>Finance</h3>
-                    {% for finance in history.finance_set.all %}
-                        <p><strong>Insurance Paid:</strong> ${{finance.insurance_paid}}</p>
-                        <p><strong>Date Due:</strong> {{finance.date_due}}</p>
-                        <p><strong>Date Paid:</strong> {{finance.date_paid}}</p>
-                        <p><strong>Deductible:</strong> ${{finance.deductible}}</p>
-                        <p><strong>Notes:</strong> {{finance.insurance_notes}}</p>
-                        <p><strong>Repair Cost:</strong> ${{finance.repair_cost}}</p>
-                        <div><input type = "button" name = "editFinanceButton" value = "Edit Finance" onclick=""></div>
-                    {% endfor %}
 
-                    </div>
-                {% endfor %}
+{% block main %}
+    <div class = "sidebar col-md-3">
+        <h3>{{user.username}}'s Vehicles</h3>
+        <ul class = "nav nav-pills nav-stacked">
+            {% for vehicle in vehicles %}
+                <li>
+                    <button class = "btn btn-default"
+                    onclick="changeVehicle('vehicle', 'vehicle-content', {{vehicle.id}})">
+                        {{vehicle.year}} {{vehicle.make}} {{vehicle.model}}
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id = "vehicle">
+    <div id = "vehicle-content" class = "col-md-9">
+        {% for vehicle in display_vehicle %}
+            <div>
+                <h3>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</h3>
+                <div>
+                    <p><strong>Make:</strong> {{vehicle.make}}</p>
+                    <p><strong>Model:</strong> {{vehicle.model}}</p>
+                    <p><strong>Year:</strong> {{vehicle.year}}</p>
+                    <p><strong>Color:</strong> {{vehicle.color}}</p>
+                    <p><strong>VIN #:</strong> {{vehicle.VIN}}</p>
+                    <p><strong>Tag #:</strong> {{vehicle.license}}</p>
+                    <h3>History</h3>
+                    {% for history in vehicle.history_set.all %}
+                        <div>
+                        <p><strong>Location:</strong> {{history.location}}</p>
+                        <p><strong>Mileage:</strong> {{history.current_mileage}}</p>
+                        <p><strong>Maintenance Type:</strong> {{history.maintenance_type}}</p>
+                        <p><strong>Date Performed:</strong> {{history.date_performed}}</p>
+                        <p><strong>Self Maintenance?:</strong> {{history.self_maintenance}}</p>
+                        <p><strong>Additional Info:</strong> {{history.additional_info}}</p>
+                        <h3>Mechanics</h3>
+                        {% for mechanic in history.mechanic_set.all %}
+                            <p><strong>Name:</strong> {{mechanic.name}}</p>
+                            <p><strong>Phone:</strong> {{mechanic.phone_number}}</p>
+                            <p><strong>Address:</strong> {{mechanic.address}}</p>
+                            <p><strong>Specialty:</strong> {{mechanic.specialty}}</p>
+                        {% endfor %}
+                        <h3>Parts</h3>
+                        {% for part in history.part_set.all %}
+                            <p><strong>Name:</strong> {{part.name}}</p>
+                            <p><strong>Number:</strong> {{part.number}}</p>
+                            <p><strong>Warranty Expiration:</strong> {{part.warranty_expiration}}</p>
+                            <p><strong>Vendor:</strong> {{part.vendor}}</p>
+                            <p><strong>Price:</strong> ${{part.price}}</p>
+                        {% endfor %}
+                        <h3>Finance</h3>
+                        {% for finance in history.finance_set.all %}
+                            <p><strong>Insurance Paid:</strong> ${{finance.insurance_paid}}</p>
+                            <p><strong>Date Due:</strong> {{finance.date_due}}</p>
+                            <p><strong>Date Paid:</strong> {{finance.date_paid}}</p>
+                            <p><strong>Deductible:</strong> ${{finance.deductible}}</p>
+                            <p><strong>Notes:</strong> {{finance.insurance_notes}}</p>
+                            <p><strong>Repair Cost:</strong> ${{finance.repair_cost}}</p>
+                        {% endfor %}
+
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-        <br/><br/><br/>
-    {% endfor %}
-    <div><input type = "button" name = "addVehicleButton" value = "Add Vehicle" onclick="location.href='add/vehicle';"></div>
+            <br/><br/><br/>
+        {% endfor %}
+    </div>
+    </div>
 {% endblock main %}
 
 {% block footer %}

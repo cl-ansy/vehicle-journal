@@ -20,7 +20,7 @@ DATABASES = {
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/home/samuel/Documents/vehicle-journal/vjournal/media/'
+MEDIA_ROOT = '/data/vehicle-journal/vjournal/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -38,16 +38,19 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '/home/samuel/Documents/vehicle-journal/vjournal/static/',
+    '/data/vehicle-journal/vjournal/static/',
 )
 
-MIDDLEWARE_CLASSES += ()
+MIDDLEWARE_CLASSES += (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+)
 
 TEMPLATE_DIRS = (
-    '/home/samuel/Documents/vehicle-journal/vjournal/apps/vjournal/templates',
+    '/data/vehicle-journal/vjournal/apps/vjournal/templates',
 )
 
 INSTALLED_APPS += (
+    'debug_toolbar',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)

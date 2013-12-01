@@ -38,7 +38,7 @@
                     </ul>
                 </li>
             </ul>
-            
+
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/account/logout">Logout</a></li>
             </ul>
@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <div class = "main">
+        <div class = "container">
             {% block main %}
             {% endblock main %}
         </div>
@@ -65,6 +65,7 @@
         <!-- JS -->
         <script src="{{ STATIC_URL }}js/jquery/jquery-1.10.2.min.js"></script>
         <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}js/vjournal.js"></script>
         {% block scripts %}{% endblock scripts %}
     </body>
 </html>

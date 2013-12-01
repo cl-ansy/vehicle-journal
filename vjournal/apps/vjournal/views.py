@@ -22,8 +22,13 @@ def index(request):
     #a list of vehicles
     vehicles = Vehicle.objects.filter(owner=request.user)
 
+    #get vehicle id from post if it exists and retrieve vehicle that matches that id
+    vid = request.GET.get('vid')
+    display_vehicle = Vehicle.objects.filter(id=vid)
+
     return render_to_response('main.html', {
         'vehicles': vehicles,
+        'display_vehicle': display_vehicle,
     }, context_instance=RequestContext(request))
 
 def register(request):

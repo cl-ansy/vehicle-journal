@@ -29,12 +29,8 @@ class History(models.Model):
 
     additional_info = models.CharField(max_length=60)
 
-    #build RESTful URLs in the backend -- eventually
-    def get_absolute_url(self):
-        return 'ZE URL'
-
     def __unicode__(self):
-        return unicode(self.maintenance_type)
+        return "%s %d" % (self.maintenance_type, self.id)
 
 class Mechanic(models.Model):
     history = models.ForeignKey('History')
@@ -58,7 +54,7 @@ class Finance(models.Model):
     repair_cost = models.IntegerField()
 
     def __unicode__(self):
-        return unicode(self.finance_id)
+        return "Finance %d for %s" % (self.finance_id, self.history)
 
 class Part(models.Model):
     history = models.ForeignKey('History')
@@ -70,4 +66,4 @@ class Part(models.Model):
     price = models.IntegerField()
 
     def __unicode__(self):
-        return "%s for history: %s" % (self.name, self.history)
+        return "%s for %s" % (self.name, self.history)
