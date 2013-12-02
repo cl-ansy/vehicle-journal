@@ -23,8 +23,8 @@ def index(request):
     vehicles = Vehicle.objects.filter(owner=request.user)
 
     #get vehicle id from post if it exists and retrieve vehicle that matches that id
-    vid = request.GET.get('vid')
-    display_vehicle = Vehicle.objects.filter(id=vid)
+    vid = request.POST.get('vid')
+    display_vehicle = Vehicle.objects.filter(owner=request.user, id=vid)
 
     return render_to_response('main.html', {
         'vehicles': vehicles,
