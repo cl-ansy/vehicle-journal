@@ -35,7 +35,7 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            new_user = form.save()
+            form.save()
             return HttpResponseRedirect("/")
     else:
         form = UserCreationForm()
@@ -47,9 +47,9 @@ def register(request):
 def add_vehicle(request):
     if request.method == 'POST':
         vehicle = Vehicle(owner=request.user)
-        form = VehicleForm(request.POST, instance = vehicle)
+        form = VehicleForm(request.POST, instance=vehicle)
         if form.is_valid():
-            new_vehicle = form.save()
+            form.save()
             return HttpResponseRedirect("/")
     else:
         form = VehicleForm()
@@ -62,10 +62,11 @@ def add_history(request):
     if request.method == 'POST':
         form = HistoryForm(request.POST)
         if form.is_valid():
-            new_history = form.save()
+            form.save()
             return HttpResponseRedirect("/")
     else:
         form = HistoryForm()
+        form.fields['vehicle'].queryset = Vehicle.objects.filter(owner=request.user)
     return render(request, "add/addHistory.html", {
         'form': form,
     })
@@ -75,10 +76,11 @@ def add_mechanic(request):
     if request.method == 'POST':
         form = MechanicForm(request.POST)
         if form.is_valid():
-            new_mechanic = form.save()
+            form.save()
             return HttpResponseRedirect("/")
     else:
         form = MechanicForm()
+        form.fields['history'].queryset = History.objects.filter(vehicle__owner=request.user)
     return render(request, "add/addMechanic.html", {
         'form': form,
     })
@@ -88,10 +90,11 @@ def add_finance(request):
     if request.method == 'POST':
         form = FinanceForm(request.POST)
         if form.is_valid():
-            new_finance = form.save()
+            form.save()
             return HttpResponseRedirect("/")
     else:
         form = FinanceForm()
+        form.fields['history'].queryset = History.objects.filter(vehicle__owner=request.user)
     return render(request, "add/addFinance.html", {
         'form': form,
     })
@@ -101,10 +104,11 @@ def add_part(request):
     if request.method == 'POST':
         form = PartForm(request.POST)
         if form.is_valid():
-            new_part = form.save()
+            form.save()
             return HttpResponseRedirect("/")
     else:
         form = PartForm()
+        form.fields['history'].queryset = History.objects.filter(vehicle__owner=request.user)
     return render(request, "add/addPart.html", {
         'form': form,
     })
