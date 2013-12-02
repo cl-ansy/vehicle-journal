@@ -3,16 +3,15 @@
 {% block main %}
     <div class = "sidebar col-md-3">
         <h3>{{user.username}}'s Vehicles</h3>
-        <ul class = "nav nav-pills nav-stacked">
-            {% for vehicle in vehicles %}
-                <li>
-                    <button class = "btn btn-default"
-                    onclick="changeVehicle('vehicle', 'vehicle-content', {{vehicle.id}})">
+        <div class = "well">
+            <ul class = "list-group">
+                {% for vehicle in vehicles %}
+                <li class = "vehicle-list-item list-group-item" onclick = "changeVehicle('vehicle', 'vehicle-content', {{vehicle.id}})">
                         {{vehicle.year}} {{vehicle.make}} {{vehicle.model}}
-                    </button>
                 </li>
-            {% endfor %}
-        </ul>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
     <div id = "vehicle">
     <div id = "vehicle-content" class = "col-md-9">

@@ -34,3 +34,6 @@ td {
     text-align: center;
 }
 
+.vehicle-list-item:hover {
+    cursor: pointer;
+}
