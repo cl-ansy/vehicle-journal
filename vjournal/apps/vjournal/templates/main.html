@@ -27,12 +27,12 @@
                     <p><strong>VIN #:</strong> {{vehicle.VIN}}</p>
                     <p><strong>Tag #:</strong> {{vehicle.license}}</p>
                     <h3>History</h3>
-                    {% for history in vehicle.history_set.all %}
+                    {% for history in vehicle.history_set.all|dictsortreversed:"date_performed" %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseHistory{{history.id}}">
-                                    {{history.maintenance_type}}
+                                    {{history.maintenance_type}} - {{history.date_performed}}
                                 </a>
                             </h4>
                         </div>
