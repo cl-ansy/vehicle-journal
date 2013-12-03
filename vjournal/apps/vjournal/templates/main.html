@@ -15,6 +15,7 @@
     </div>
     <div id = "vehicle">
     <div id = "vehicle-content" class = "col-md-9">
+    <div class="panel-group" id="accordion1">
         {% for vehicle in display_vehicle %}
             <div>
                 <h3>{{vehicle.year}} {{vehicle.make}} {{vehicle.model}}</h3>
@@ -27,44 +28,100 @@
                     <p><strong>Tag #:</strong> {{vehicle.license}}</p>
                     <h3>History</h3>
                     {% for history in vehicle.history_set.all %}
-                        <div>
-                        <p><strong>Location:</strong> {{history.location}}</p>
-                        <p><strong>Mileage:</strong> {{history.current_mileage}}</p>
-                        <p><strong>Maintenance Type:</strong> {{history.maintenance_type}}</p>
-                        <p><strong>Date Performed:</strong> {{history.date_performed}}</p>
-                        <p><strong>Self Maintenance?:</strong> {{history.self_maintenance}}</p>
-                        <p><strong>Additional Info:</strong> {{history.additional_info}}</p>
-                        <h3>Mechanics</h3>
-                        {% for mechanic in history.mechanic_set.all %}
-                            <p><strong>Name:</strong> {{mechanic.name}}</p>
-                            <p><strong>Phone:</strong> {{mechanic.phone_number}}</p>
-                            <p><strong>Address:</strong> {{mechanic.address}}</p>
-                            <p><strong>Specialty:</strong> {{mechanic.specialty}}</p>
-                        {% endfor %}
-                        <h3>Parts</h3>
-                        {% for part in history.part_set.all %}
-                            <p><strong>Name:</strong> {{part.name}}</p>
-                            <p><strong>Number:</strong> {{part.number}}</p>
-                            <p><strong>Warranty Expiration:</strong> {{part.warranty_expiration}}</p>
-                            <p><strong>Vendor:</strong> {{part.vendor}}</p>
-                            <p><strong>Price:</strong> ${{part.price}}</p>
-                        {% endfor %}
-                        <h3>Finance</h3>
-                        {% for finance in history.finance_set.all %}
-                            <p><strong>Insurance Paid:</strong> ${{finance.insurance_paid}}</p>
-                            <p><strong>Date Due:</strong> {{finance.date_due}}</p>
-                            <p><strong>Date Paid:</strong> {{finance.date_paid}}</p>
-                            <p><strong>Deductible:</strong> ${{finance.deductible}}</p>
-                            <p><strong>Notes:</strong> {{finance.insurance_notes}}</p>
-                            <p><strong>Repair Cost:</strong> ${{finance.repair_cost}}</p>
-                        {% endfor %}
-
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseHistory{{history.id}}">
+                                    {{history.maintenance_type}}
+                                </a>
+                            </h4>
                         </div>
+                        <div class="panel-group" id="accordion2">
+                            <div id="collapseHistory{{history.id}}" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p><strong>Location:</strong> {{history.location}}</p>
+                                    <p><strong>Mileage:</strong> {{history.current_mileage}}</p>
+                                    <p><strong>Maintenance Type:</strong> {{history.maintenance_type}}</p>
+                                    <p><strong>Date Performed:</strong> {{history.date_performed}}</p>
+                                    <p><strong>Self Maintenance?:</strong> {{history.self_maintenance}}</p>
+                                    <p><strong>Additional Info:</strong> {{history.additional_info}}</p>
+
+                                    <h3>Mechanics</h3>
+                                    {% for mechanic in history.mechanic_set.all %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseMechanic{{mechanic.id}}">
+                                                    {{mechanic.name}}
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseMechanic{{mechanic.id}}" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <p><strong>Name:</strong> {{mechanic.name}}</p>
+                                                <p><strong>Phone:</strong> {{mechanic.phone_number}}</p>
+                                                <p><strong>Address:</strong> {{mechanic.address}}</p>
+                                                <p><strong>Specialty:</strong> {{mechanic.specialty}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                    <h3>Parts</h3>
+                                    {% for part in history.part_set.all %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsePart{{part.id}}">
+                                                    {{part.name}}
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapsePart{{part.id}}" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <p><strong>Name:</strong> {{part.name}}</p>
+                                                <p><strong>Number:</strong> {{part.number}}</p>
+                                                <p><strong>Warranty Expiration:</strong> {{part.warranty_expiration}}</p>
+                                                <p><strong>Vendor:</strong> {{part.vendor}}</p>
+                                                <p><strong>Price:</strong> ${{part.price}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                    <h3>Finance</h3>
+                                    {% for finance in history.finance_set.all %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFinance{{finance.id}}">
+                                                    {{history.maintenance_type}}'s Fincance
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseFinance{{finance.id}}" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <p><strong>Insurance Paid:</strong> ${{finance.insurance_paid}}</p>
+                                                <p><strong>Date Due:</strong> {{finance.date_due}}</p>
+                                                <p><strong>Date Paid:</strong> {{finance.date_paid}}</p>
+                                                <p><strong>Deductible:</strong> ${{finance.deductible}}</p>
+                                                <p><strong>Notes:</strong> {{finance.insurance_notes}}</p>
+                                                <p><strong>Repair Cost:</strong> ${{finance.repair_cost}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
             <br/><br/><br/>
         {% endfor %}
+    </div>
     </div>
     </div>
 {% endblock main %}
